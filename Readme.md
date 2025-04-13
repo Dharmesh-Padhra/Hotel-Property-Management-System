@@ -1,4 +1,3 @@
-```markdown
 # 🏨 Hotel Management System
 
 A full-stack Hotel Management System built with **React** for the frontend and **Django** (with Django REST Framework) for the backend.
