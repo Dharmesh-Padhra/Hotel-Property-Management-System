@@ -143,3 +143,5 @@ Made with ❤️ by a passionate developer.
 
 Pull requests are welcome! If you have ideas or feature suggestions, feel free to open an issue.
 ```
+
+---
