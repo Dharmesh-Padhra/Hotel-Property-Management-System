@@ -1,26 +1,24 @@
-# Ignore Node.js dependencies (for React frontend)
+# === FRONTEND (React) ===
 frontend/node_modules/
-
-# Ignore build output (for React frontend)
 frontend/build/
 frontend/dist/
 
-
-# Ignore npm or Yarn lock files (if not needed)
+# Ignore npm/Yarn lock file (optional)
 frontend/package-lock.json
+frontend/yarn.lock
 
-# Ignore logs (both frontend and backend)
-logs
-*.log
-npm-debug.log*
+# Frontend env files
+frontend/.env
+frontend/.env.*
 
-# Ignore Python bytecode (for Django backend)
+
+# === BACKEND (Django) ===
 backend/__pycache__/
-backend/*.pyc
-backend/*.pyo
-backend/*.pyd
+*.py[cod]
+*.pyo
+*.pyd
 
-# Ignore virtual environment folder (for Django backend)
+# Virtual environments
 backend/venv/
 backend/.venv/
 backend/env/
@@ -28,21 +26,24 @@ backend/.env/
 backend/env.bak/
 backend/.env.bak/
 
-# Ignore Django migration files (optional)
-backend/**/migrations/*.pyc
-backend/**/migrations/*.pyo
+# Django migrations
+backend/**/migrations/
+!backend/**/migrations/__init__.py  # Optional: Keep init files
 
-
-
-# Ignore Django static files (generated)
+# Static and media
 backend/staticfiles/
 backend/media/
 
-# Ignore IDE or editor-specific settings
+# SQLite database (if used)
+*.sqlite3
+
+# === LOGS ===
+logs/
+*.log
+npm-debug.log*
+
+# === IDEs and OS Files ===
 .vscode/
 .idea/
-
-# Ignore OS-specific files
 .DS_Store
 Thumbs.db
-node_modules
