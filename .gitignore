@@ -10,6 +10,7 @@ frontend/yarn.lock
 # Frontend env files
 frontend/.env
 frontend/.env.*
+!frontend/.env.example
 
 
 # === BACKEND (Django) ===
