@@ -3,9 +3,6 @@ frontend/node_modules/
 frontend/build/
 frontend/dist/
 
-# Ignore npm/Yarn lock file (optional)
-frontend/package-lock.json
-frontend/yarn.lock
 
 # Frontend env files
 frontend/.env
@@ -15,7 +12,7 @@ frontend/.env.*
 
 # === BACKEND (Django) ===
 backend/__pycache__/
-*.py[cod]
+backend/**/*.py[cod]
 *.pyo
 *.pyd
 
@@ -26,10 +23,6 @@ backend/env/
 backend/.env/
 backend/env.bak/
 backend/.env.bak/
-
-# Django migrations
-backend/**/migrations/
-!backend/**/migrations/__init__.py  # Optional: Keep init files
 
 # Static and media
 backend/staticfiles/

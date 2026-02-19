@@ -48,7 +48,7 @@ def createHotel(request):
                 room_serializer.save()
         for floor in floorRooms:
             for room in range(1, floor['rooms'] +1):
-                room_serializer = RoomSerializer(data={'hotel':hotel.id, 'floor':floor['floor'], 'name':f'{floor['floor']:0{floor_digits}} {room:0{room_digits}}'})
+                room_serializer = RoomSerializer(data={'hotel':hotel.id, 'floor':floor['floor'], 'name':f"{floor['floor']:0{floor_digits}} {room:0{room_digits}}"})
                 if room_serializer.is_valid():
                     room_serializer.save()
         
