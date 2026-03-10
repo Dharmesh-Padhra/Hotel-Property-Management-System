@@ -11,8 +11,6 @@ function Navbar(props) {
     const normalLink =
         "block py-2 px-3 rounded-full hover:bg-primary hover:text-white transition-all ease-in duration-100";
 
-    
-
     useEffect(() => {
         if (location.state && location.state.scrollTo) {
             const sectionId = location.state.scrollTo;
@@ -53,10 +51,13 @@ function Navbar(props) {
         <>
             <nav className="fixed z-10 top-0 w-full bg-ternary shadow-lg">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <Link to="/" className="flex items-center">
-                        <img src="/logo.png" className="h-7" alt="E Logo" />
-                        <span className="self-start text-2xl font-semibold whitespace-nowrap">
-                            ase Hotel
+                    <Link to="/" className="flex items-center space-x-2">
+                        <img src="/logo.png" className="h-14" alt="Hotel Hive" />
+                        <span className="text-2xl font-semibold whitespace-nowrap">
+                            Hotel
+                        </span>
+                        <span className="text-2xl font-semibold whitespace-nowrap text-[#FF5733]">
+                            Hive
                         </span>
                     </Link>
 
@@ -75,7 +76,9 @@ function Navbar(props) {
                         </li>
                         <li className="relative inline-block text-left">
                             <button
-                                onClick={() => props.scrollToSection("services")}
+                                onClick={() =>
+                                    props.scrollToSection("services")
+                                }
                                 className={
                                     activeSection === "services"
                                         ? activeLink

@@ -42,7 +42,7 @@ const Home = (props) => {
                         onClick={() => {
                             navigate("/register");
                         }}
-                        className="bg-ternary font-bold py-3 px-8 rounded-full hover:bg-quad transition duration-300"
+                        className="bg-ternary text-primary font-bold py-3 px-8 rounded-full hover:bg-quad transition duration-300"
                     >
                         Get Started
                     </button>
@@ -96,12 +96,11 @@ const Home = (props) => {
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-4xl font-bold mb-8">About Us</h2>
                         <p className="text-xl mb-8">
-                            At Ease Hotel, we're passionate about
-                            revolutionizing hotel management. Our platform is
-                            designed to empower hoteliers with cutting-edge
-                            tools and insights, enabling them to deliver
-                            exceptional guest experiences while optimizing their
-                            operations.
+                            At HotelHive, we're passionate about revolutionizing
+                            hotel management. Our platform is designed to
+                            empower hoteliers with cutting-edge tools and
+                            insights, enabling them to deliver exceptional guest
+                            experiences while optimizing their operations.
                         </p>
                         <p className="text-xl">
                             With years of industry expertise and a commitment to
@@ -120,7 +119,7 @@ const Home = (props) => {
                             platform
                         </p>
                         <button
-                            className="bg-ternary font-bold py-3 px-8 rounded-full hover:bg-quad transition duration-300 flex items-center mx-auto"
+                            className="bg-ternary text-primary font-bold py-3 px-8 rounded-full hover:bg-quad transition duration-300 flex items-center mx-auto"
                             onClick={() => {
                                 navigate("/register");
                             }}
@@ -235,7 +234,7 @@ const Home = (props) => {
             <footer className="bg-gray-800 text-white py-8 px-4">
                 <div className="max-w-6xl mx-auto flex flex-wrap justify-between">
                     <div className="w-full md:w-1/4 mb-6 md:mb-0">
-                        <h3 className="text-2xl font-bold mb-4">Ease Hotel</h3>
+                        <h3 className="text-2xl font-bold mb-4">Hotel Hive</h3>
                         <p>Empowering hoteliers worldwide</p>
                     </div>
                     <div className="w-full md:w-1/4 mb-6 md:mb-0">
@@ -290,8 +289,8 @@ const Home = (props) => {
                             Contact Us
                         </h4>
                         <p>Sardar Colony, Naranpura, Ahmedabad, India</p>
-                        <p>contact@easehotel.com</p>
-                        <p>+91 9408109631</p>
+                        <p>contact@hotelhive.com</p>
+                        <p>+91 9537684421</p>
                     </div>
                     <div className="w-full md:w-1/4">
                         <h4 className="text-lg font-semibold mb-4">
