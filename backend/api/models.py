@@ -6,6 +6,10 @@ class Contactus(models.Model):
     message = models.TextField(max_length=2000)
     submitted_on = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        verbose_name = "Contact Us Query"
+        verbose_name_plural = "Contact Us Queries"
+
     def __str__(self) -> str:
         return self.name + ' ' + self.email
 
