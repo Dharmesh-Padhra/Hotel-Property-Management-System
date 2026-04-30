@@ -12,7 +12,7 @@ const Home = (props) => {
     const handleContactSubmit = async (e) => {
         e.preventDefault();
         await api
-            .post("/api/contactus/", { name, email, message })
+            .post("/api/submit-contactus/", { name, email, message })
             .then((res) => {
                 alert("We recieved your query. We will reply soon.");
                 setEmail("");

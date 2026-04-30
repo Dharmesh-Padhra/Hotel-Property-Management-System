@@ -14,6 +14,8 @@ urlpatterns = [
     path('user/owner/', getOwner, name='getowner'),
     path('user/manager/', getManager, name='getmanager'),
     path('user/updateprofile/', updateProfile, name='updateprofile'),
+    path('user/forgot-password/', forgot_password, name='forgotpassword'),
+    path('user/change-password/', change_password, name='changepassword'),
     path('usertype/', getUserType, name='usertype'),
     path('hotel/create/', createHotel, name='createhotel'),
     path('gethotels/', getHotels, name='getHotels'),
@@ -24,7 +26,7 @@ urlpatterns = [
     path('hotel/rooms/', getRooms, name='getRooms'),
     path('hotel/room/edit/', editRoom, name='editRoom'),
     path('manager/delete/', deleteManager, name='deleteManager'),
-    path('contactus/', contactus, name='contactus'),
+    path('submit-contactus/', contactus, name='contactus'),
     path('dashboard/', dashboardDetails, name='dashbaordDetails'),
     path('booking/operation/', bookingOperation, name='bookingOperation'),
 ]

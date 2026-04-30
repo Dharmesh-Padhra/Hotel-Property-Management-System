@@ -21,13 +21,14 @@ function NewBooking() {
     const [document, setDocument] = useState(null);
     const [documentUrl, setDocumentUrl] = useState("");
     const [previousBooking, setPreviousBooking] = useState({});
+    const [formErrors, setFormErrors] = useState({});
     const [customerDetails, setCustomerDetails] = useState({
         first_name: "",
         last_name: "",
         phone_number: "",
         address: "",
         email: "",
-        id_proof: "",
+        aadhar_number: "",
     });
     const [bookingDetails, setBookingDetails] = useState({
         check_in: "",
@@ -43,10 +44,13 @@ function NewBooking() {
     };
     const handleCustomerChange = (e) => {
         const { name, value } = e.target;
-        setCustomerDetails({
-            ...customerDetails,
-            [name]: value,
-        });
+        // Strip non-digit characters for numeric-only fields
+        if (name === "phone_number" || name === "aadhar_number") {
+            const digitsOnly = value.replace(/\D/g, "");
+            setCustomerDetails({ ...customerDetails, [name]: digitsOnly });
+        } else {
+            setCustomerDetails({ ...customerDetails, [name]: value });
+        }
     };
     const resetForm = () => {
         if (reset) {
@@ -56,7 +60,7 @@ function NewBooking() {
                 phone_number: "",
                 address: "",
                 email: "",
-                id_proof: "",
+                aadhar_number: "",
             });
             setBookingDetails({
                 check_in: "",
@@ -65,6 +69,40 @@ function NewBooking() {
         }
         setSelectedFloor("");
         setSelectedRoom("");
+        setFormErrors({});
+    };
+
+    const validate = () => {
+        const errors = {};
+        if (!customerDetails.first_name.trim()) {
+            errors.first_name = "First Name is required.";
+        }
+        if (!customerDetails.last_name.trim()) {
+            errors.last_name = "Last Name is required.";
+        }
+        // phone_number is already digits-only (stripped on input)
+        const phone = customerDetails.phone_number;
+        if (!phone) {
+            errors.phone_number = "Phone Number is required.";
+        } else if (phone.length !== 10) {
+            errors.phone_number = "Phone Number must be exactly 10 digits.";
+        }
+        if (customerDetails.email.trim()) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(customerDetails.email.trim())) {
+                errors.email = "Please enter a valid email address.";
+            }
+        }
+        if (!customerDetails.address.trim()) {
+            errors.address = "Address is required.";
+        }
+        // aadhar_number is already digits-only (stripped on input)
+        const aadhar = customerDetails.aadhar_number;
+        if (aadhar && (aadhar.length < 12 || aadhar.length > 16)) {
+            errors.aadhar_number =
+                "Aadhar / VID number must be between 12 and 16 digits.";
+        }
+        return errors;
     };
 
     const loadHotels = async () => {
@@ -103,6 +141,13 @@ function NewBooking() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Validate before submitting
+        const errors = validate();
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors);
+            return;
+        }
+        setFormErrors({});
         // Here you can handle the form submission logic
         localStorage.setItem(
             "previousBooking",
@@ -290,29 +335,37 @@ function NewBooking() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label className="block mb-2 font-medium">
-                            First Name:
+                            First Name:<span className="text-red-500">*</span>
                         </label>
                         <input
                             type="text"
                             name="first_name"
                             value={customerDetails.first_name}
                             onChange={handleCustomerChange}
-                            className="border p-2 rounded w-full"
-                            required
+                            className={`border p-2 rounded w-full ${formErrors.first_name ? "border-red-500" : ""}`}
                         />
+                        {formErrors.first_name && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {formErrors.first_name}
+                            </p>
+                        )}
                     </div>
                     <div>
                         <label className="block mb-2 font-medium">
-                            Last Name:
+                            Last Name:<span className="text-red-500">*</span>
                         </label>
                         <input
                             type="text"
                             name="last_name"
                             value={customerDetails.last_name || ""}
                             onChange={handleCustomerChange}
-                            className="border p-2 rounded w-full"
-                            required
+                            className={`border p-2 rounded w-full ${formErrors.last_name ? "border-red-500" : ""}`}
                         />
+                        {formErrors.last_name && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {formErrors.last_name}
+                            </p>
+                        )}
                     </div>
                 </div>
 
@@ -320,54 +373,80 @@ function NewBooking() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label className="block mb-2 font-medium">
-                            Phone Number:
+                            Phone Number:<span className="text-red-500">*</span> (10 digits)
                         </label>
                         <input
                             type="tel"
                             name="phone_number"
                             value={customerDetails.phone_number || ""}
                             onChange={handleCustomerChange}
-                            className="border p-2 rounded w-full"
-                            required
+                            maxLength={10}
+                            inputMode="numeric"
+                            placeholder="Enter 10-digit mobile number"
+                            className={`border p-2 rounded w-full ${formErrors.phone_number ? "border-red-500" : ""}`}
                         />
+                        {formErrors.phone_number && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {formErrors.phone_number}
+                            </p>
+                        )}
                     </div>
                     <div>
                         <label className="block mb-2 font-medium">Email:</label>
                         <input
-                            type="email"
+                            type="text"
                             name="email"
                             value={customerDetails.email || ""}
                             onChange={handleCustomerChange}
-                            className="border p-2 rounded w-full"
-                            required
+                            placeholder="example@email.com"
+                            className={`border p-2 rounded w-full ${formErrors.email ? "border-red-500" : ""}`}
                         />
+                        {formErrors.email && (
+                            <p className="text-red-500 text-sm mt-1">
+                                {formErrors.email}
+                            </p>
+                        )}
                     </div>
                 </div>
 
                 {/* Address Section */}
                 <div>
-                    <label className="block mb-2 font-medium">Address:</label>
-
+                    <label className="block mb-2 font-medium">
+                        Address:<span className="text-red-500">*</span>
+                    </label>
                     <textarea
                         name="address"
                         value={customerDetails.address || ""}
                         onChange={handleCustomerChange}
-                        className="border p-2 rounded w-full h-24 resize-none"
-                        required
+                        className={`border p-2 rounded w-full h-24 resize-none ${formErrors.address ? "border-red-500" : ""}`}
                     />
+                    {formErrors.address && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {formErrors.address}
+                        </p>
+                    )}
                 </div>
 
-                {/* ID Proof Section */}
+                {/* Aadhar Number Section */}
                 <div>
-                    <label className="block mb-2 font-medium">ID Proof:</label>
+                    <label className="block mb-2 font-medium">
+                        Aadhar / VID Number: (12–16 digits)
+                    </label>
                     <input
                         type="text"
-                        name="id_proof"
-                        value={customerDetails.id_proof || ""}
+                        name="aadhar_number"
+                        value={customerDetails.aadhar_number || ""}
                         onChange={handleCustomerChange}
-                        className="border p-2 rounded w-full"
-                        required
+                        maxLength={16}
+                        placeholder="Enter 12-digit Aadhar or 16-digit VID"
+                        className={`border p-2 rounded w-full ${formErrors.aadhar_number ? "border-red-500" : ""
+                            }`}
                     />
+                    {formErrors.aadhar_number && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {formErrors.aadhar_number}
+                        </p>
+                    )}
                 </div>
 
                 <div className="text-center">

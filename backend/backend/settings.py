@@ -209,10 +209,24 @@ JAZZMIN_SETTINGS = {
     "default_icon_children": "fas fa-circle",
     "related_modal_active": False,
     "custom_css": "css/custom_admin.css",
-    "custom_js": None,
+    "custom_js": "js/custom_admin.js",
     "show_ui_builder": False,
     "changeform_format": "horizontal_tabs",
 }
+
+# ──────────────────────────────────────────────
+# Email / SMTP Configuration
+# Fill in your SMTP credentials below.
+# For Gmail: enable 2-Step Verification and generate
+# an App Password at https://myaccount.google.com/apppasswords
+# ──────────────────────────────────────────────
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'rajsolanki2323@gmail.com'       # ← FILL IN
+EMAIL_HOST_PASSWORD = 'nvvb kysd yqni dudh'       # ← FILL IN
+DEFAULT_FROM_EMAIL = 'Hotel Hive <rajsolanki2323@gmail.com>'  # ← FILL IN
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,

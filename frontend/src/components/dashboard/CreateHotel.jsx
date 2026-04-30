@@ -9,6 +9,7 @@ function CreateHotel(props) {
     const [hotelImage, setHotelImage] = useState(null);
     const [hotelUrl, setHotelUrl] = useState("");
     const [floorRooms, setFloorRooms] = useState([]);
+    const [roomError, setRoomError] = useState("");
     const [hotel, setHotel] = useState({
         name: "",
         email: "",
@@ -90,6 +91,31 @@ function CreateHotel(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Room count validation
+        const groundRooms = hotel.ground_floor_rooms;
+        const floors = hotel.floors;
+        if (floors === 0) {
+            // No upper floors — ground floor must have at least 1 room
+            if (!groundRooms || groundRooms <= 0) {
+                setRoomError(
+                    "When there are no upper floors, Ground Floor must have at least 1 room."
+                );
+                return;
+            }
+        } else {
+            // Upper floors exist — at least one floor (ground or any upper) must have rooms
+            const anyUpperFloorHasRooms = floorRooms.some(
+                (fr) => fr.rooms && fr.rooms > 0
+            );
+            if ((!groundRooms || groundRooms <= 0) && !anyUpperFloorHasRooms) {
+                setRoomError(
+                    "At least one floor (Ground Floor or any upper floor) must have at least 1 room."
+                );
+                return;
+            }
+        }
+        setRoomError("");
         const formData = new FormData();
         if (hotelImage) {
             formData.append("image", hotelImage);
@@ -222,6 +248,11 @@ function CreateHotel(props) {
                     <legend className="text-2xl text-white p-2 rounded-full  m-5 bg-primary">
                         Room management
                     </legend>
+                    {roomError && (
+                        <p className="text-red-500 font-semibold mx-5 mb-3">
+                            {roomError}
+                        </p>
+                    )}
                     <table className="table-fixed text-center border-collapse border border-slate-200 w-[96%] m-5">
                         <thead>
                             <tr>
